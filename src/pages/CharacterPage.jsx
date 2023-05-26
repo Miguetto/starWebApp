@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import CharactersListService from "../services/CharactersListService";
 import { DataContext } from "../context/DataContext";
 
 export const CharacterPage = () => {
