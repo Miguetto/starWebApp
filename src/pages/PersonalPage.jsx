@@ -1,6 +1,9 @@
+import { PersonalList } from "../components/PersonalList"
 
 export const PersonalPage = () => {
   return (
-    <div>PersonalPage</div>
+    <>
+      <PersonalList />
+    </>
   )
 }
