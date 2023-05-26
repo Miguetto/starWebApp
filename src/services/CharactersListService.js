@@ -9,6 +9,10 @@ const CharactersListService = {
         axios.get(`${baseUrl}/${charactersEndpoint}`)
     ),
 
+    getCharacter: ( id ) => (
+        axios.get(`${baseUrl}/${charactersEndpoint}/${id}/`)
+    ),
+
     getPage: ( page ) => (
         axios.get(page)
     ),

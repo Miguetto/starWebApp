@@ -7,7 +7,7 @@ export const AppRouter = () => {
         <Routes>
             <Route path="/*" element={<HomePage />} />
             <Route path="characters" element={<CharactersPage />} />
-            <Route path="character/:characterId" element={<characterPage />} />
+            <Route path="character/:characterId" element={<CharacterPage />} />
 
             // Por si falla la condicion de arriba:
             <Route path="/*" element={<Navigate to="/home" />} />
