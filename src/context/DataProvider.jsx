@@ -5,6 +5,7 @@ import CharactersListService from '../services/CharactersListService';
 export const DataProvider = ({ children }) => {
 
     const [characters, setCharacters] = useState([]);
+    const [page, setPage] = useState();
 
     const fetchCharacters = async () => {
         try {
@@ -16,12 +17,24 @@ export const DataProvider = ({ children }) => {
         }
     };
 
+    const handdlerCharacters = async () => {
+        if (page) {
+            const res = await CharactersListService.getPage(page);
+            setCharacters([...characters, ...res.data.results]);
+            page != null ? setPage(res.data.next) : setPage(page);
+        }
+    }
+
+    const handleScrollTop = () => {
+        window.scrollTo(0, 0);
+    }
+
     useEffect(() => {
         fetchCharacters();
     }, []);
 
     return (
-        <DataContext.Provider value={{ characters }}>
+        <DataContext.Provider value={{ characters, handdlerCharacters, handleScrollTop, page }}>
             {children}
         </DataContext.Provider>
     )
