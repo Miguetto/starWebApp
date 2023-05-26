@@ -1,1 +1,1 @@
-export * from './PersonalList';
+export * from './CharactersList';

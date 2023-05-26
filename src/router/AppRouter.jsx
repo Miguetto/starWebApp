@@ -1,14 +1,13 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { HomePage, PersonalPage } from "../pages";
-import { PersonPage } from "../pages/PersonPage";
+import { HomePage, CharactersPage, CharacterPage } from "../pages";
 
 export const AppRouter = () => {
 
     return (
         <Routes>
             <Route path="/*" element={<HomePage />} />
-            <Route path="personal" element={<PersonalPage />} />
-            <Route path="person/:personId" element={<PersonPage />} />
+            <Route path="characters" element={<CharactersPage />} />
+            <Route path="character/:characterId" element={<characterPage />} />
 
             // Por si falla la condicion de arriba:
             <Route path="/*" element={<Navigate to="/home" />} />
