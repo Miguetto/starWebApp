@@ -6,6 +6,7 @@ export const DataProvider = ({ children }) => {
 
     const [characters, setCharacters] = useState([]);
     const [page, setPage] = useState();
+    const [favorites, setFavorites] = useState([]);
 
     const fetchCharacters = async () => {
         try {
@@ -29,12 +30,31 @@ export const DataProvider = ({ children }) => {
         window.scrollTo(0, 0);
     }
 
+    const addToFavorites = (character) => {
+        setFavorites([...favorites, character]);
+    };
+
+    const removeFromFavorites = (character) => {
+        const updatedFavorites = favorites.filter(
+            (favorite) => favorite.url !== character.url
+        );
+        setFavorites(updatedFavorites);
+    };
+
     useEffect(() => {
         fetchCharacters();
     }, []);
 
     return (
-        <DataContext.Provider value={{ characters, handdlerCharacters, handleScrollTop, page }}>
+        <DataContext.Provider value={{ 
+            characters, 
+            handdlerCharacters,
+            handleScrollTop, 
+            page,
+            favorites,
+            addToFavorites,
+            removeFromFavorites,
+        }}>
             {children}
         </DataContext.Provider>
     )
