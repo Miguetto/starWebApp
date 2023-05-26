@@ -20,6 +20,10 @@ export const CharacterPage = () => {
     fetchCharacter();
   }, [characterId]);
 
+  if (!character) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <h1>Nombre: {character.name}</h1>
