@@ -1,21 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import CharactersListService from "../services/CharactersListService";
 import { Link } from "react-router-dom";
+import { DataContext } from "../context/DataContext";
 
 export const CharactersList = () => {
-
-    const [characters, setCharacters] = useState([]);
+    
+    const { characters } = useContext(DataContext);
+    
     const [page, setPage] = useState();
-
-    const fetchCharacters = async () => {
-        try {
-            const res = await CharactersListService.getCharacters();
-            setCharacters([...characters, ...res.data.results]);
-            setPage(res.data.next);
-        } catch {
-
-        }
-    };
 
     const handdlerCharacters = async () => {
         if (page) {
@@ -28,10 +20,6 @@ export const CharactersList = () => {
     const handleScrollTop = () => {
         window.scrollTo(0, 0);
     }
-
-    useEffect(() => {
-        fetchCharacters();
-    }, []);
 
     return (
         <>
