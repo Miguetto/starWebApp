@@ -6,7 +6,7 @@ export const DataProvider = ({ children }) => {
 
     const [characters, setCharacters] = useState([]);
     const [page, setPage] = useState();
-    const [favorites, setFavorites] = useState([]);
+    const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
 
     const fetchCharacters = async () => {
         try {
@@ -41,19 +41,37 @@ export const DataProvider = ({ children }) => {
         setFavorites(updatedFavorites);
     };
 
+    const isFavorite = (character) => {
+        return favorites.some((favCharacter) => favCharacter.url === character.url);
+    };
+
+    const handleFavoriteClick = (character) => {
+        if (isFavorite(character)) {
+            removeFromFavorites(character);
+        } else {
+            addToFavorites(character);
+        }
+    };
+
     useEffect(() => {
         fetchCharacters();
     }, []);
 
+    useEffect(() => {
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }, [favorites]);
+
     return (
-        <DataContext.Provider value={{ 
-            characters, 
+        <DataContext.Provider value={{
+            characters,
             handdlerCharacters,
-            handleScrollTop, 
+            handleScrollTop,
             page,
             favorites,
             addToFavorites,
             removeFromFavorites,
+            isFavorite,
+            handleFavoriteClick,
         }}>
             {children}
         </DataContext.Provider>

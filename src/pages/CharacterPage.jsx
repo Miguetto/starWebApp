@@ -7,24 +7,11 @@ export const CharacterPage = () => {
   const { characterId } = useParams();
   const {
     characters,
-    favorites,
-    addToFavorites,
-    removeFromFavorites
+    isFavorite,
+    handleFavoriteClick,
   } = useContext(DataContext);
 
   const character = characters.find((char) => char.url.split('/')[5] === characterId);
-
-  const isFavorite = (character) => {
-    return favorites.some((favCharacter) => favCharacter.url === character.url);
-  };
-
-  const handleFavoriteClick = (character) => {
-    if (isFavorite(character)) {
-      removeFromFavorites(character);
-    } else {
-      addToFavorites(character);
-    }
-  };
 
   if (!character) {
     return <div>Loading...</div>;

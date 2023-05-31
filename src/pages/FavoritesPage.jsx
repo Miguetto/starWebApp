@@ -2,7 +2,11 @@ import { useContext } from 'react';
 import { DataContext } from '../context/DataContext';
 
 const FavoritesPage = () => {
-  const { favorites } = useContext(DataContext);
+  const { 
+    favorites,
+    isFavorite,
+    handleFavoriteClick,
+   } = useContext(DataContext);
 
   return (
     <div>
@@ -12,7 +16,16 @@ const FavoritesPage = () => {
       ) : (
         <ul>
           {favorites.map((character) => (
-            <li key={character.url}>{character.name}</li>
+            <li key={character.url}>
+              {character.name}
+              <button
+                className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                onClick={() => handleFavoriteClick(character)}>
+                {isFavorite(character) ? 'Quitar de favoritos' : 'Añadir a favoritos'}
+              </button>
+
+            </li>
+
           ))}
         </ul>
       )}

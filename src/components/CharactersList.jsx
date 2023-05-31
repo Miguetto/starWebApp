@@ -9,22 +9,9 @@ export const CharactersList = () => {
         handdlerCharacters,
         handleScrollTop,
         page,
-        favorites,
-        addToFavorites,
-        removeFromFavorites,
+        isFavorite,
+        handleFavoriteClick,
     } = useContext(DataContext);
-
-    const isFavorite = (character) => {
-        return favorites.some((favCharacter) => favCharacter.url === character.url);
-    };
-
-    const handleFavoriteClick = (character) => {
-        if (isFavorite(character)) {
-            removeFromFavorites(character);
-        } else {
-            addToFavorites(character);
-        }
-    };
 
     return (
         <>
