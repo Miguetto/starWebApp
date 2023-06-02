@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
 import { Link } from "react-router-dom";
+import { CharactersCard } from "./CharactersCard";
 
 export const CharactersList = () => {
 
@@ -26,9 +27,8 @@ export const CharactersList = () => {
                 className="px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
             <section>
-                <div className="overflow-x-auto w-full">
-                    <table className="table w-full">
-                        {/* head */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    {/* <table className="table w-full">
                         <thead>
                             <tr>
                                 <th>Fav</th>
@@ -43,7 +43,6 @@ export const CharactersList = () => {
                             )
                                 .map(character => (
                                     <tbody key={character.url}>
-                                        {/* row 1 */}
                                         <tr>
                                             <th>
                                                 <label>
@@ -81,7 +80,15 @@ export const CharactersList = () => {
                                     </tbody>
 
                                 ))}
-                    </table>
+                    </table> */}
+
+                    {
+                            characters.filter((character) =>
+                                character.name.toLowerCase().includes(search.toLowerCase())
+                            )
+                                .map(character => (
+                                    <CharactersCard key={character.url} character={character} />
+                                ))}
                 </div>
 
             </section>

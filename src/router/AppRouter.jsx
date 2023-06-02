@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { HomePage, CharactersPage, CharacterPage } from "../pages";
 import { DataProvider } from "../context/DataProvider";
-import { Navbar } from "../components";
+import { Navbar } from "../ui";
 import FavoritesPage from "../pages/FavoritesPage";
 
 export const AppRouter = () => {

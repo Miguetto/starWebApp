@@ -9,6 +9,8 @@ export const DataProvider = ({ children }) => {
     const [page, setPage] = useState();
     const [planet, setPlanet] = useState({});
     const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
+    const [search, setSearch] = useState('');
+
 
     const fetchCharacters = async () => {
         try {
