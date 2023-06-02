@@ -64,7 +64,13 @@ export const CharactersList = () => {
                                                 </div>
                                             </td>
                                             <td>
-                                                <span className="badge badge-ghost badge-sm">{planet[character.homeworld]}</span>
+                                                {
+                                                    planet[character.homeworld] ? (
+                                                        <span className="badge badge-ghost badge-sm">{planet[character.homeworld]}</span>
+                                                    ) : (
+                                                        <span className="badge badge-ghost badge-sm">cargando..</span>
+                                                    )
+                                                }
                                             </td>
                                             <th>
                                                 <Link to={`/character/${character.url.split('/')[5]}/`}>

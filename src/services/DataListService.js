@@ -14,6 +14,10 @@ const DataListService = {
         axios.get(`${baseUrl}/${charactersEndpoint}/${id}/`)
     ),
 
+    getPlanets: () => (
+        axios.get(`${baseUrl}/${planetsEndpoint}`)
+    ),
+
     getPage: ( page ) => (
         axios.get(page)
     ),

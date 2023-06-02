@@ -15,8 +15,9 @@ export const DataProvider = ({ children }) => {
             const res = await DataListService.getCharacters();
             setCharacters([...characters, ...res.data.results]);
             setPage(res.data.next);
-        } catch {
-
+        } catch (error) {
+            console.error('Error en la petición:', error);
+            return 'Desconocido';
         }
     };
 
@@ -25,8 +26,9 @@ export const DataProvider = ({ children }) => {
             const res = await DataListService.getPlanets();
             setPlanets([...planets, ...res.data.results]);
             setPage(res.data.next);
-        } catch {
-
+        } catch (error) {
+            console.error('Error en la petición:', error);
+            return 'Desconocido';
         }
     };
 
@@ -38,8 +40,8 @@ export const DataProvider = ({ children }) => {
                 [url]: res.data.name
             }));
         } catch (error) {
-            console.error('Error fetching planet:', error);
-            return 'Unknown';
+            console.error('Error en la petición:', error);
+            return 'Desconocido';
         }
     };
 
