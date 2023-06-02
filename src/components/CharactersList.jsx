@@ -1,11 +1,13 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
+import { Link } from "react-router-dom";
 
 export const CharactersList = () => {
 
     const [search, setSearch] = useState('');
     const {
         characters,
+        planet,
         handdlerCharacters,
         handleScrollTop,
         page,
@@ -13,9 +15,9 @@ export const CharactersList = () => {
         handleFavoriteClick,
     } = useContext(DataContext);
 
+
     return (
         <>
-            <h1 className="text-3xl font-semibold">Personajes Star Wars</h1>
             <input
                 type="text"
                 placeholder="Buscar personaje..."
@@ -29,14 +31,9 @@ export const CharactersList = () => {
                         {/* head */}
                         <thead>
                             <tr>
-                                <th>
-                                    <label>
-                                        <input type="checkbox" className="checkbox" />
-                                    </label>
-                                </th>
-                                <th>Name</th>
-                                <th>Job</th>
-                                <th>Favorite Color</th>
+                                <th>Fav</th>
+                                <th>Nombre</th>
+                                <th>Planeta</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -50,14 +47,14 @@ export const CharactersList = () => {
                                         <tr>
                                             <th>
                                                 <label>
-                                                    <input type="checkbox" checked={isFavorite(character)}  onChange={() => handleFavoriteClick(character)} className="checkbox" />
+                                                    <input type="checkbox" checked={isFavorite(character)} onChange={() => handleFavoriteClick(character)} className="checkbox" />
                                                 </label>
                                             </th>
                                             <td>
                                                 <div className="flex items-center space-x-3">
                                                     <div className="avatar">
-                                                        <div className="mask mask-squircle w-12 h-12">
-                                                            <img src={`https://starwars-visualguide.com/assets/img/characters/${character.url.split('/')[5]}.jpg`} alt="Avatar Tailwind CSS Component" />
+                                                        <div className="mask mask-squircle w-12 h-12 hover:scale-150 transition-all duration-500">
+                                                            <img className="hover:scale-125 transition-all duration-500 cursor-pointer" src={`https://starwars-visualguide.com/assets/img/characters/${character.url.split('/')[5]}.jpg`} alt="Avatar Tailwind CSS Component" />
                                                         </div>
                                                     </div>
                                                     <div>
@@ -67,13 +64,12 @@ export const CharactersList = () => {
                                                 </div>
                                             </td>
                                             <td>
-                                                Zemlak, Daniel and Leannon
-                                                <br />
-                                                <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
+                                                <span className="badge badge-ghost badge-sm">{planet[character.homeworld]}</span>
                                             </td>
-                                            <td>Purple</td>
                                             <th>
-                                                <button className="btn btn-ghost btn-xs">details</button>
+                                                <Link to={`/character/${character.url.split('/')[5]}/`}>
+                                                    ver más
+                                                </Link>
                                             </th>
                                         </tr>
                                     </tbody>

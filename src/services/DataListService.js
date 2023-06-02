@@ -2,8 +2,9 @@ import axios from 'axios';
 
 const baseUrl = 'https://swapi.dev/api';
 const charactersEndpoint = 'people';
+const planetsEndpoint = 'planets';
 
-const CharactersListService = {
+const DataListService = {
 
     getCharacters: () => (
         axios.get(`${baseUrl}/${charactersEndpoint}`)
@@ -17,6 +18,14 @@ const CharactersListService = {
         axios.get(page)
     ),
 
+    getPlanet: (url) => (
+       axios.get(`${url}`)
+    ),
+
+    getHomeWorld: ( id ) => (
+      axios.get(`${baseUrl}/${planetsEndpoint}/${id}/`)
+    ),
+
 }
 
-export default CharactersListService;
+export default DataListService;
