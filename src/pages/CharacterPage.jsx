@@ -14,7 +14,7 @@ export const CharacterPage = () => {
   const character = characters.find((char) => char.url.split('/')[5] === characterId);
 
   if (!character) {
-    return <div>Loading...</div>;
+    return <div>Personaje no encontrado</div>;
   }
 
   return (

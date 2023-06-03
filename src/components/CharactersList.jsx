@@ -1,99 +1,49 @@
 import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
-import { Link } from "react-router-dom";
-import { CharactersCard } from "./CharactersCard";
+import { CharacterCard } from "./CharacterCard";
 
 export const CharactersList = () => {
 
     const [search, setSearch] = useState('');
     const {
         characters,
-        planet,
         handdlerCharacters,
         handleScrollTop,
         page,
-        isFavorite,
-        handleFavoriteClick,
     } = useContext(DataContext);
 
 
     return (
         <>
-            <input
-                type="text"
-                placeholder="Buscar personaje..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            />
-            <section>
+            <form className="mb-3">
+                <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
+                <div className="relative">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg aria-hidden="true" className="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <input 
+                    type="search" 
+                    id="default-search"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                    placeholder="Buscar personaje..." 
+                    required />
+                </div>
+            </form>
+            <section className="sm:mr-1 md:mr-2 lg:mr-3 sm:ml-1 md:ml-2 lg:ml-3">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {/* <table className="table w-full">
-                        <thead>
-                            <tr>
-                                <th>Fav</th>
-                                <th>Nombre</th>
-                                <th>Planeta</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        {
-                            characters.filter((character) =>
-                                character.name.toLowerCase().includes(search.toLowerCase())
-                            )
-                                .map(character => (
-                                    <tbody key={character.url}>
-                                        <tr>
-                                            <th>
-                                                <label>
-                                                    <input type="checkbox" checked={isFavorite(character)} onChange={() => handleFavoriteClick(character)} className="checkbox" />
-                                                </label>
-                                            </th>
-                                            <td>
-                                                <div className="flex items-center space-x-3">
-                                                    <div className="avatar">
-                                                        <div className="mask mask-squircle w-12 h-12 hover:scale-150 transition-all duration-500">
-                                                            <img className="hover:scale-125 transition-all duration-500 cursor-pointer" src={`https://starwars-visualguide.com/assets/img/characters/${character.url.split('/')[5]}.jpg`} alt="Avatar Tailwind CSS Component" />
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <div className="font-bold">{character.name}</div>
-                                                        <div className="text-sm opacity-50">Nacimiento: {character.birth_year}</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                {
-                                                    planet[character.homeworld] ? (
-                                                        <span className="badge badge-ghost badge-sm">{planet[character.homeworld]}</span>
-                                                    ) : (
-                                                        <span className="badge badge-ghost badge-sm">cargando..</span>
-                                                    )
-                                                }
-                                            </td>
-                                            <th>
-                                                <Link to={`/character/${character.url.split('/')[5]}/`}>
-                                                    ver más
-                                                </Link>
-                                            </th>
-                                        </tr>
-                                    </tbody>
-
-                                ))}
-                    </table> */}
-
                     {
-                            characters.filter((character) =>
-                                character.name.toLowerCase().includes(search.toLowerCase())
-                            )
-                                .map(character => (
-                                    <CharactersCard key={character.url} character={character} />
-                                ))}
+                        characters.filter((character) =>
+                            character.name.toLowerCase().includes(search.toLowerCase())
+                        )
+                            .map(character => (
+                                <CharacterCard key={character.url} character={character} />
+                            ))
+                    }
                 </div>
 
             </section>
-
-
 
             <button
                 className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"

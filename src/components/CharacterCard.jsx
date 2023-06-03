@@ -4,7 +4,7 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { DataContext } from '../context/DataContext';
 import { Link } from 'react-router-dom';
 
-export const CharactersCard = ({ character }) => {
+export const CharacterCard = ({ character }) => {
 
     const { isFavorite, handleFavoriteClick } = useContext(DataContext);
 
@@ -28,7 +28,7 @@ export const CharactersCard = ({ character }) => {
                     <FontAwesomeIcon
                         icon={faHeart}
                         className={`${isFavorite(character) ? 'text-red-500' : 'fill-none'}`}
-                         />
+                    />
                 </button>
             </div>
         </div>
