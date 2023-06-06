@@ -90,6 +90,10 @@ export const DataProvider = ({ children }) => {
         }
     };
 
+    const handleGoBack = () => {
+        window.history.back();
+    };
+
     useEffect(() => {
         fetchCharacters();
         fetchPlanets();
@@ -119,6 +123,7 @@ export const DataProvider = ({ children }) => {
             removeFromFavorites,
             isFavorite,
             handleFavoriteClick,
+            handleGoBack,
         }}>
             {children}
         </DataContext.Provider>

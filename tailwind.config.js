@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      'sans': [ 'Deathstar', 'Verdana', 'Geneva', 'Tahoma', 'sans-serif'],
+    }
   },
   plugins: [require("daisyui")],
 }

@@ -6,4 +6,6 @@ export const CharactersPage = () => {
       <CharactersList />
     </>
   )
-}
+};
+
+export default CharactersPage;

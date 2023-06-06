@@ -1,5 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { HomePage, CharactersPage, CharacterPage } from "../pages";
+import { CharactersPage, CharacterPage } from "../pages";
 import { DataProvider } from "../context/DataProvider";
 import { Navbar } from "../ui";
 import FavoritesPage from "../pages/FavoritesPage";
@@ -12,14 +12,14 @@ export const AppRouter = () => {
             <hr />
 
             <Routes>
-                <Route path="/*" element={<HomePage />} />
+                <Route path="/*" element={<CharactersPage />} />
                 <Route path="characters" element={<CharactersPage />} />
                 <Route path="character/:characterId" element={<CharacterPage />} />
                 <Route path="favorites" element={<FavoritesPage />} />
                 
 
             // Por si falla la condicion de arriba:
-                <Route path="/*" element={<Navigate to="/home" />} />
+                <Route path="/*" element={<Navigate to="/characters" />} />
             </Routes>
         </DataProvider>
 

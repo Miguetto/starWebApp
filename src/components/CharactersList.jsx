@@ -13,7 +13,6 @@ export const CharactersList = () => {
         page,
     } = useContext(DataContext);
 
-
     return (
         <>
             <form className="mb-3">
@@ -34,21 +33,22 @@ export const CharactersList = () => {
                 </div>
 
             </section>
-
-            <button
-                className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                disabled={page === null}
-                onClick={() => handdlerCharacters()}
-            >
-                Mostrar más
-            </button>
-            <button
-                className="ml-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-                disabled={page !== null}
-                onClick={handleScrollTop}
-            >
-                Subir
-            </button>
+            <div className="flex justify-center">
+                <button
+                    className="mt-4 mb-4 ml-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                    style={{ display: page === null ? 'none' : '' }}
+                    onClick={() => handdlerCharacters()}
+                >
+                    Mostrar más
+                </button>
+                <button
+                    className="mt-4 mb-4 ml-2 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                    style={{ display: page !== null ? 'none' : '' }}
+                    onClick={handleScrollTop}
+                >
+                    Subir
+                </button>
+            </div>
         </>
     )
 }
