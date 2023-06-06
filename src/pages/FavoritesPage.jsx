@@ -13,24 +13,23 @@ const FavoritesPage = () => {
     handleGoBack,
   } = useContext(DataContext);
 
-  console.log(favorites)
-
   return (
     <>
       <section className="sm:mr-1 md:mr-2 lg:mr-3 sm:ml-1 md:ml-2 lg:ml-3">
-        <Typography className="mt-8 mb-8" variant="h5">Personajes favoritos: </Typography>
         {favorites.length === 0 ? (
-          <Typography className="mt-8 mb-8" variant="small">No tienes aún personajes favoritos.</Typography>
+          <div className="grid justify-center">
+            <Typography className="mt-8 mb-8 " variant="small">No tienes personajes favoritos.</Typography>
+          </div>
 
         ) : (
           <div>
-            <form className="mb-3">
+            <form className="mt-3 mb-3">
               <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Buscar</label>
               <div className="relative">
                 <SearchList search={search} setSearch={setSearch} />
               </div>
             </form>
-
+            <Typography className="mt-8 mb-8" variant="h5">Personajes favoritos: </Typography>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-10 gap-4">
               {
                 favorites.filter((character) =>

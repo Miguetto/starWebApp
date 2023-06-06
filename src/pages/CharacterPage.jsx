@@ -1,13 +1,18 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { DataContext } from "../context/DataContext";
 import { Typography } from "@material-tailwind/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faHeartCrack } from "@fortawesome/free-solid-svg-icons";
+import DataListService from "../services/DataListService";
 
 export const CharacterPage = () => {
 
+  const [character, setCharacter] = useState(null);
+  const [planet, setPlanet] = useState();
+  const [imageError, setImageError] = useState(false);
   const { characterId } = useParams();
+
   const {
     characters,
     isFavorite,
@@ -15,11 +20,37 @@ export const CharacterPage = () => {
     handleGoBack,
   } = useContext(DataContext);
 
-  const character = characters.find((char) => char.url.split('/')[5] === characterId);
 
-  if (!character) {
+  const getPlanetCharacter = async () => {
+
+    const character = characters.find(
+      (char) => char.url.split("/")[5] === characterId
+    );
+
+    if (character) {
+      setCharacter(character);
+
+      try {
+        const res = await DataListService.getPlanet(character.homeworld);
+        setPlanet(res.data);
+      } catch (error) {
+        console.error("Error en la petición:", error);
+        return 'Desconocido';
+      }
+    }
+  };
+
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  useEffect(() => {
+    getPlanetCharacter();
+  }, [characterId, characters]);
+
+  if (!character || !planet) {
     return <div><Typography className="ml-8 mt-8 mb-8" variant="h3">Cargando...</Typography></div>;
-  }
+  };
 
   return (
     <div className="mt-8 grid place-items-center">
@@ -34,9 +65,19 @@ export const CharacterPage = () => {
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Género: </span> {character.gender}</p>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Color de pelo: </span> {character.hair_color}</p>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Altura: </span> {character.height}</p>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Masa: </span> {character.mass}</p>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Planeta: </span> {character.mass}</p>
+          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Peso: </span> {character.mass}</p>
+          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400"><span className="font-bold">Planeta: </span> {planet.name}</p>
 
+          {planet && !imageError && (
+            <div className="flex flex-col items-center justify-between p-4">
+              <img
+                className="w-24 h-24 mb-3 rounded-full shadow-lg"
+                src={`https://starwars-visualguide.com/assets/img/planets/${planet.url.split('/')[5]}.jpg`}
+                onError={handleImageError}
+                alt={planet.name}
+              />
+            </div>
+          )}
           <button className="px-6 py-4 flex justify-center" onClick={() => handleFavoriteClick(character)}>
             <FontAwesomeIcon
               icon={isFavorite(character) ? faHeart : faHeartCrack}

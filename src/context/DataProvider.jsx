@@ -5,42 +5,14 @@ import DataListService from '../services/DataListService';
 export const DataProvider = ({ children }) => {
 
     const [characters, setCharacters] = useState([]);
-    const [planets, setPlanets] = useState([]);
     const [page, setPage] = useState();
-    const [planet, setPlanet] = useState({});
     const [favorites, setFavorites] = useState(JSON.parse(localStorage.getItem('favorites')) || []);
-    const [search, setSearch] = useState('');
 
-
-    const fetchCharacters = async () => {
+    const getCharactersAll = async () => {
         try {
             const res = await DataListService.getCharacters();
             setCharacters([...characters, ...res.data.results]);
             setPage(res.data.next);
-        } catch (error) {
-            console.error('Error en la petición:', error);
-            return 'Desconocido';
-        }
-    };
-
-    const fetchPlanets = async () => {
-        try {
-            const res = await DataListService.getPlanets();
-            setPlanets([...planets, ...res.data.results]);
-            setPage(res.data.next);
-        } catch (error) {
-            console.error('Error en la petición:', error);
-            return 'Desconocido';
-        }
-    };
-
-    const fetchPlanet = async (url) => {
-        try {
-            const res = await DataListService.getPlanet(url);
-            setPlanet((prevPlanet) => ({
-                ...prevPlanet,
-                [url]: res.data.name
-            }));
         } catch (error) {
             console.error('Error en la petición:', error);
             return 'Desconocido';
@@ -53,15 +25,7 @@ export const DataProvider = ({ children }) => {
             setCharacters([...characters, ...res.data.results]);
             page != null ? setPage(res.data.next) : setPage(page);
         }
-    }
-
-    const handdlerPlanets = async () => {
-        if (page) {
-            const res = await DataListService.getPage(page);
-            setPlanets([...planets, ...res.data.results]);
-            page != null ? setPage(res.data.next) : setPage(page);
-        }
-    }
+    };
 
     const handleScrollTop = () => {
         window.scrollTo(0, 0);
@@ -95,27 +59,17 @@ export const DataProvider = ({ children }) => {
     };
 
     useEffect(() => {
-        fetchCharacters();
-        fetchPlanets();
+        getCharactersAll();
     }, []);
 
     useEffect(() => {
         localStorage.setItem('favorites', JSON.stringify(favorites));
     }, [favorites]);
 
-    useEffect(() => {
-        characters.forEach(character => {
-            fetchPlanet(character.homeworld);
-        });
-    }, [characters]);
-
     return (
         <DataContext.Provider value={{
             characters,
-            planets,
-            planet,
             handdlerCharacters,
-            handdlerPlanets,
             handleScrollTop,
             page,
             favorites,

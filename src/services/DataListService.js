@@ -10,24 +10,16 @@ const DataListService = {
         axios.get(`${baseUrl}/${charactersEndpoint}`)
     ),
 
-    getCharacter: ( id ) => (
+    getCharacter: (id) => (
         axios.get(`${baseUrl}/${charactersEndpoint}/${id}/`)
     ),
 
-    getPlanets: () => (
-        axios.get(`${baseUrl}/${planetsEndpoint}`)
+    getPlanet: (planetUrl) => (
+        axios.get(planetUrl)
     ),
 
-    getPage: ( page ) => (
+    getPage: (page) => (
         axios.get(page)
-    ),
-
-    getPlanet: (url) => (
-       axios.get(`${url}`)
-    ),
-
-    getHomeWorld: ( id ) => (
-      axios.get(`${baseUrl}/${planetsEndpoint}/${id}/`)
     ),
 
 }
