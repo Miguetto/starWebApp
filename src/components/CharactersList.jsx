@@ -13,6 +13,10 @@ export const CharactersList = () => {
         page,
     } = useContext(DataContext);
 
+    if (!characters) {
+        return <div className="grid place-items-center"><Typography className="ml-8 mt-8 mb-8" variant="h3">Cargando...</Typography></div>;
+    };
+
     return (
         <>
             <form className="mb-3">

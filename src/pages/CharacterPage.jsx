@@ -49,7 +49,7 @@ export const CharacterPage = () => {
   }, [characterId, characters]);
 
   if (!character || !planet) {
-    return <div><Typography className="ml-8 mt-8 mb-8" variant="h3">Cargando...</Typography></div>;
+    return <div className="grid place-items-center"><Typography className="ml-8 mt-8 mb-8" variant="h3">Cargando...</Typography></div>;
   };
 
   return (
