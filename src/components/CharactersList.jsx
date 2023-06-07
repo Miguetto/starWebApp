@@ -39,7 +39,7 @@ export const CharactersList = () => {
             )}
             {!characterNotFound && (
                 <>
-            <section className="sm:mr-1 md:mr-2 lg:mr-3 sm:ml-1 md:ml-2 lg:ml-3">
+            <section className="grid place-items-center sm:mr-1 md:mr-2 lg:mr-3 sm:ml-1 md:ml-2 lg:ml-3">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-10 gap-4">
                     {
                         characters.filter((character) =>
