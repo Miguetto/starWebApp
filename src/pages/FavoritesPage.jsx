@@ -35,15 +35,15 @@ const FavoritesPage = () => {
                 <SearchList search={search} setSearch={setSearch} />
               </div>
             </form>
-            <Typography className="mt-8 mb-8" variant="h5">Personajes favoritos: </Typography>
+            <Typography className="grid place-items-center mt-8 mb-8" variant="h5">Personajes favoritos: </Typography>
             {characterNotFound && (
               <div className="grid place-items-center">
-                <Typography className="ml-8 mt-8 mb-8" variant="h3">Personaje no encontrado</Typography>
+                <Typography className="grid place-items-center ml-8 mt-8 mb-8" variant="h3">Personaje no encontrado</Typography>
               </div>
             )}
             {!characterNotFound && (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-10 gap-4">
+                <div className="grid place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-10 gap-4">
                   {
                     favorites.filter((character) =>
                       character.name.toLowerCase().includes(search.toLowerCase())
