@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { DataContext } from "../context/DataContext";
 import { CharacterCard } from "./CharacterCard";
 import { SearchList } from "./SearchList";
+import { Typography } from "@material-tailwind/react";
 
 export const CharactersList = () => {
 
@@ -17,6 +18,12 @@ export const CharactersList = () => {
         return <div className="grid place-items-center"><Typography className="ml-8 mt-8 mb-8" variant="h3">Cargando...</Typography></div>;
     };
 
+    const filteredCharacters = characters.filter((character) =>
+        character.name.toLowerCase().includes(search.toLowerCase())
+    );
+
+    const characterNotFound = search && filteredCharacters.length === 0;
+
     return (
         <>
             <form className="mb-3">
@@ -25,6 +32,13 @@ export const CharactersList = () => {
                     <SearchList search={search} setSearch={setSearch} />
                 </div>
             </form>
+            {characterNotFound && (
+                <div className="grid place-items-center">
+                    <Typography className="ml-8 mt-8 mb-8" variant="h3">Personaje no encontrado</Typography>
+                </div>
+            )}
+            {!characterNotFound && (
+                <>
             <section className="sm:mr-1 md:mr-2 lg:mr-3 sm:ml-1 md:ml-2 lg:ml-3">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-10 gap-4">
                     {
@@ -53,6 +67,8 @@ export const CharactersList = () => {
                     Subir
                 </button>
             </div>
+            </>
+            )}
         </>
     )
 }

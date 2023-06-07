@@ -13,6 +13,12 @@ const FavoritesPage = () => {
     handleGoBack,
   } = useContext(DataContext);
 
+  const filteredCharacters = favorites.filter((character) =>
+    character.name.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const characterNotFound = search && filteredCharacters.length === 0;
+
   return (
     <>
       <section className="sm:mr-1 md:mr-2 lg:mr-3 sm:ml-1 md:ml-2 lg:ml-3">
@@ -30,15 +36,24 @@ const FavoritesPage = () => {
               </div>
             </form>
             <Typography className="mt-8 mb-8" variant="h5">Personajes favoritos: </Typography>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-10 gap-4">
-              {
-                favorites.filter((character) =>
-                  character.name.toLowerCase().includes(search.toLowerCase())
-                ).map((character) => (
-                  <CharacterCard key={character.url} character={character} />
-                ))
-              }
-            </div>
+            {characterNotFound && (
+              <div className="grid place-items-center">
+                <Typography className="ml-8 mt-8 mb-8" variant="h3">Personaje no encontrado</Typography>
+              </div>
+            )}
+            {!characterNotFound && (
+              <>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-10 gap-4">
+                  {
+                    favorites.filter((character) =>
+                      character.name.toLowerCase().includes(search.toLowerCase())
+                    ).map((character) => (
+                      <CharacterCard key={character.url} character={character} />
+                    ))
+                  }
+                </div>
+              </>
+            )}
           </div>
         )}
       </section>
